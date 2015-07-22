@@ -1,0 +1,27 @@
+extends layouts/master
+
+block content
+    .row
+        .col-sm-offset-2.col-sm-8.col-xs-12
+            .container-fluid
+                .header
+                    .row
+                        .col-xs-12.col-sm-5.text-center
+                            h3.text-muted KnightStart
+                        .col-xs-12.col-sm-7
+                            ul.nav.nav-pills.small-padding
+                                li.active: a(href='#') Home
+                                li: a(href='#') About
+                                li: a(href='#') Contact
+                .space
+                .jumbotron.text-center
+                    h1 'Ayyee, 'Ayyee!
+                    p.lead Always a pleasure scaffolding your apps.
+                    p
+                        a.btn.btn-lg.btn-default(href='http://twitter.com/jheneknights')
+                            span.fa.fa-check-square-o &nbsp;
+                            | Hapo Sawaa Kaabisa!
+
+                h3.text-lead.text-center
+                    | Don't forget to really know what <b>"START"</b> is, click
+                    a(target="_blank" href="http://kn9ts.github.io/start/")&nbsp; HERE

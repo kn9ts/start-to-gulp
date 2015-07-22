@@ -1,0 +1,42 @@
+<!--/**
+ * Created by Eugene Mutai
+ * Twitter: http://twitter.com/kn9ts
+ * Email: eugenemutai@gmail.com
+ * Date: 06/04/14 (Last updated on 04/06/15)
+ * Time: 12:45 PM
+ * Description: Simple HTML5 application template to get you started.
+ *
+ * ===== "How does somebody know what they want if they haven’t even seen it?" - Steve Jobs. =====
+ *
+ * db   dD d8b   db .d888b. d888888b .d8888.
+ * 88 ,8P' 888o  88 88' `8D `~~88~~' 88'  YP
+ * 88,8P   88V8o 88 `V8o88'    88    `8bo.
+ * 88`8b   88 V8o88    d8'     88      `Y8b.
+ * 88 `88. 88  V888   d8'      88    db   8D
+ * YP   YD VP   V8P  d8'       YP    `8888Y'
+ *
+--><!DOCTYPE html><html lang="en"><head><title>Knightstart -- Sample Page</title><!-- Site Necessities--><meta charset="utf-8"><meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><meta name="description" content=""><meta name="keywords" content=""><meta http-equiv="cleartype" content="on"><!-- http://getbootstrap.com/components--><link rel="stylesheet" href="./third_party/bootstrap/dist/css/bootstrap.css"><link rel="stylesheet" href="./third_party/fontawesome/css/font-awesome.css"><!-- Your stylesheets--><link rel="stylesheet" href="./dist/css/application.css"></head><body><!-- if lt IE 10p.browsehappy
+    | You are using an
+strong outdated
+    | browser. Please
+a(href='http://browsehappy.com/') upgrade your browser
+    | to improve your experience.
+--><div class="row"><div class="col-sm-offset-2 col-sm-8 col-xs-12"><div class="container-fluid"><div class="header"><div class="row"><div class="col-xs-12 col-sm-5 text-center"><h3 class="text-muted">KnightStart</h3></div><div class="col-xs-12 col-sm-7"><ul class="nav nav-pills small-padding"><li class="active"><a href="#">Home</a></li><li><a href="#">About</a></li><li><a href="#">Contact</a></li></ul></div></div></div><div class="space"></div><div class="jumbotron text-center"><h1>'Ayyee, 'Ayyee!</h1><p class="lead">Always a pleasure scaffolding your apps.</p><p><a href="http://twitter.com/jheneknights" class="btn btn-lg btn-default"><span class="fa fa-check-square-o">&nbsp;</span>Hapo Sawaa Kaabisa!</a></p></div><h3 class="text-lead text-center">Don't forget to really know what <b>"START"</b> is, click<a target="_blank" href="http://kn9ts.github.io/start/">&nbsp; HERE</a></h3></div></div></div><div class="footer text-center"><h4><p class="text-center text-muted small-padding">© 2014, with&nbsp;<span class="fa fa-heart red"></span>&nbsp;by <a style="font-weight: bold" class="red" href="http://twitter.com/kn9ts">Eugene Mutai</a></p></h4></div><!-- App's dependencies(libraries) and business logics--><application-engine description="all the application's JS files fall here"><!-- jQuery library--><script type="text/javascript" src="./third_party/jquery/dist/jquery.min.js"></script><script type="text/javascript" src="./third_party/angularjs/angular.min.js"></script><!-- For cookies and touch support--><script type="text/javascript" src="./third_party/jquery-cookie/jquery.cookie.js"></script><script type="text/javascript" src="./third_party/hammerjs/hammer.min.js"></script><!-- Time management--><script type="text/javascript" src="./third_party/moment/min/moment.min.js"></script><!-- Your app functions script--><script type="text/javascript" src="./dist/js/application.js"></script><script>//on document ready, as soon as it begins to load
+app.initialize();
+
+// Google Analytics: change UA-XXXXX-X to be your site's ID.
+(function(b, o, i, l, e, r) {
+    b.GoogleAnalyticsObject = l;
+    b[l] || (b[l] =
+    function() {
+    (b[l].q = b[l].q || []).push(arguments)
+    });
+    b[l].l = +new Date;
+    e = o.createElement(i);
+    r = o.getElementsByTagName(i)[0];
+    e.src = '//www.google-analytics.com/analytics.js';
+    r.parentNode.insertBefore(e, r)
+}(window, document, 'script', 'ga'));
+ga('create', 'UA-XXXXX-X');
+ga('send', 'pageview');
+</script></application-engine></body></html>
