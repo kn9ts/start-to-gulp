@@ -19,7 +19,7 @@ var jade = require('gulp-jade');
 gulp.task('browser-sync', function() {
     browserSync({
         server: {
-            baseDir: "./"
+            baseDir: "./public"
         }
     });
 });
@@ -31,25 +31,25 @@ gulp.task('bs-reload', function() {
 gulp.task('templates', function() {
     var LOCAL_SETTINGS = {};
 
-    gulp.src('./jade/*.jade')
+    gulp.src('./app/jade/*.jade')
         .pipe(jade({
             locals: LOCAL_SETTINGS
         }))
-        .pipe(gulp.dest('./'))
+        .pipe(gulp.dest('./public/'))
 });
 
 gulp.task('images', function() {
-    gulp.src('./images/**/*')
+    gulp.src('./app/images/**/*')
         .pipe(cache(imagemin({
             optimizationLevel: 3,
             progressive: true,
             interlaced: true
         })))
-        .pipe(gulp.dest('dist/images/'));
+        .pipe(gulp.dest('public/images/'));
 });
 
 gulp.task('styles', function() {
-    gulp.src(['./less/**/*.less'])
+    gulp.src(['./app/styles/less/**/*.less'])
         .pipe(plumber({
             errorHandler: function(error) {
                 console.log(error.message);
@@ -58,19 +58,19 @@ gulp.task('styles', function() {
         }))
         .pipe(less())
         .pipe(autoprefixer('last 2 versions'))
-        .pipe(gulp.dest('dist/css/'))
+        .pipe(gulp.dest('public/css/'))
         .pipe(rename({
             suffix: '.min'
         }))
         .pipe(minifycss())
-        .pipe(gulp.dest('dist/css/'))
+        .pipe(gulp.dest('public/css/'))
         .pipe(browserSync.reload({
             stream: true
         }))
 });
 
 gulp.task('scripts', function() {
-    return gulp.src('./js/**/*.js')
+    return gulp.src('./app/js/**/*.js')
         .pipe(plumber({
             errorHandler: function(error) {
                 console.log(error.message);
@@ -82,10 +82,10 @@ gulp.task('scripts', function() {
         .pipe(jshint.reporter(jshint_stylish))
         .pipe(jshint.reporter('fail'))
         // .pipe(concat('application.js'))
-        .pipe(gulp.dest('dist/js/'))
+        .pipe(gulp.dest('public/js/'))
         //.pipe(rename({suffix: '.min'}))
         //.pipe(uglify())
-        .pipe(gulp.dest('dist/js/'))
+        .pipe(gulp.dest('public/js/'))
         .pipe(browserSync.reload({
             stream: true
         }))
