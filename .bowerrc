@@ -1,5 +1,5 @@
 {
-  "directory": "public/third_party",
+  "directory": "public/vendor",
   "analytics": false,
   "timeout": 120000,
   "color": true

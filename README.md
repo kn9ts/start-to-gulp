@@ -84,7 +84,7 @@ This will create a __dist__ folder with a distribution application css and js fi
 In lieu of a formal style guide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-__Version: 1.1.0__
+__Version: 1.2.0__
 
 ## License
 Copyright (c) 2014 __Eugene Mutai__

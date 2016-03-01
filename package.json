@@ -8,7 +8,7 @@
         "email": [
             "eugenemutai@gmail.com"
         ],
-        "link": "http://twitter.com/kn9ts"
+        "link": "http://github.com/kn9ts"
     },
     "repository": {
         "type": "git",
@@ -22,9 +22,6 @@
         "url": "https://github.com/kn9ts/start-to-gulp/blob/master/LICENSE-MIT"
     },
     "main": "lib/knights",
-    "engines": {
-        "node": ">= 0.10.0"
-    },
     "license": "MIT",
     "dependencies": {},
     "devDependencies": {
@@ -42,5 +39,8 @@
         "gulp-rename": "1.2.2",
         "gulp-uglify": "1.2.0",
         "jshint-stylish": "^2.0.1"
+    },
+        "engines": {
+        "node": "^4.2.2"
     }
 }
