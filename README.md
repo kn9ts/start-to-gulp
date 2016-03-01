@@ -3,8 +3,10 @@
 
 It has all the necessary requirements to get anyone started in creating apps fast and easy.
 
+Prefer __GRUNT__? [We've got you covered here.](http://github.com/kn9ts/start-to-grunt)
+
 ## What does it do for me?
-__START__ basically does the following:
+__START-TO-GULP__ basically does the following:
 
 1. compiles your scripts, templates, styles (both transpilation and precompilation is taken care of here)
 2. lints them (checks for any syntax error)
@@ -37,7 +39,7 @@ Once you have NodeJS installed, run_(type/copy paste int the command line window
 
 __To download the boilerplate__
 ```bash
-$ git clone https://github.com/kn9ts/start-to-grunt name_of_your_project
+$ git clone https://github.com/kn9ts/start-to-gulp name_of_your_project
 ```
 
 After cloning/copying the boilerplate, please get into your project's directory/folder
@@ -45,7 +47,7 @@ After cloning/copying the boilerplate, please get into your project's directory/
 $ cd name_of_your_project
 ```
 
-__To install Grunt-CLI (Command Line) plugin/tool__
+__To install Gulp-CLI (Command Line) plugin/tool__
 ```bash
 $ sudo npm install -g gulp
 ```
@@ -72,16 +74,14 @@ This will install all the things you need for running the gulp-tasks automatical
 
 ### Finally Build and launch
 
-Now you can start developing your site. Therefore use the __GruntJS__ default task _(type in your Terminal and press ENTER)_:
+Now you can start developing your site. Therefore use the __Gulp__ default task _(type in your Terminal and press ENTER)_:
 
 ```bash
 $ gulp
 ```
 
-This will create a __dist__ folder with a distribution application css and js files. All your files should point to thhis ./dist folder for you custom coded files that are in './js' prior to compilation
-
-## Contributing
-In lieu of a formal style guide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
+This will create a __public__ folder, if does not already exist. With the compiled application's css and js files.
+All your files should point to thhis ./dist folder for you custom coded files that are in './js' prior to compilation.
 
 ## Release History
 __Version: 1.2.0__
