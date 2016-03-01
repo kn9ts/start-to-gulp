@@ -174,5 +174,5 @@ DerivedData
 
 ### start-to-grunt
 dist/
-third_party/
+public/
 *.html
