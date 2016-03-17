@@ -4,33 +4,50 @@ This is the structure of the Boiler plate, it will give you teh guide in how thi
 so as to work properly and effeciently.
 
 ```
-  1 .
-  2 ├── dist
-  3 │   └── .DS_Store
-  4 ├── images
-  5 ├── jade
-  6 │   └── .DS_Store
-  7 ├── js
-  8 │   └── .DS_Store
-  9 ├── less
- 10 │   ├── base
- 11 │   │   ├── utilities.less
- 12 │   │   └── variables.less
- 13 │   ├── layouts
- 14 │   ├── .DS_Store
- 15 │   └── application.less
- 16 ├── third_party
- 17 ├── .DS_Store
- 18 ├── .bowerrc
- 19 ├── .editorconfig
- 20 ├── .gitignore
- 21 ├── .jshintrc
- 22 ├── README.md
- 23 ├── WHAT_IT_DOES.md
- 24 ├── bower.json
- 25 ├── firebase.json
- 26 ├── gulpfile.js
- 27 └── quenchjs.md
- 28
- 29 8 directories, 18 files
- ```
+.
+├── app
+│   ├── fonts
+│   │   └── Raleway-Light.ttf
+│   ├── images
+│   │   ├── html5logos
+│   │   │   ├── black.png
+│   │   │   ├── original.png
+│   │   │   └── white.png
+│   │   └── .DS_Store
+│   ├── js
+│   │   └── application.js
+│   ├── styles
+│   │   ├── less
+│   │   │   ├── base
+│   │   │   │   ├── utilities.less
+│   │   │   │   └── variables.less
+│   │   │   ├── layouts
+│   │   │   │   └── custom.less
+│   │   │   ├── .DS_Store
+│   │   │   └── application.less
+│   │   └── .DS_Store
+│   ├── views
+│   │   ├── includes
+│   │   │   ├── footer.jade
+│   │   │   ├── header.jade
+│   │   │   └── scripts.jade
+│   │   ├── layouts
+│   │   │   └── master.jade
+│   │   ├── .DS_Store
+│   │   └── index.jade
+│   └── .DS_Store
+├── .DS_Store
+├── .bowerrc
+├── .editorconfig
+├── .gitignore
+├── .jshintrc
+├── README.md
+├── STRUCTURE.md
+├── WHAT_IT_DOES.md
+├── bower.json
+├── firebase.json
+├── gulpfile.js
+└── package.json
+
+12 directories, 32 files
+```
