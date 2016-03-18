@@ -1,14 +1,15 @@
 export function preprocessLess(gulp, plugins, paths) {
-  const cachebust = new plugins.cachebust();
+  const production = (process.env.ENV == 'production');
+
   return () => {
     gulp.src(paths.styles)
+      .pipe(plugins.size({ title: 'Before:', showFiles: true }))
       .pipe(plugins.plumber({
         errorHandler: function(error) {
           console.log(error.message);
           this.emit('end');
         }
       }))
-      .pipe(plugins.sourcemaps.init())
       .pipe(plugins.less())
       .pipe(plugins.autoprefixer('last 5 versions'))
       // Remove any unused CSS
@@ -19,15 +20,12 @@ export function preprocessLess(gulp, plugins, paths) {
         // CSS Selectors for UnCSS to ignore
         ignore: []
       }))
+      .pipe(plugins.sourcemaps.init())
+      // minify on production environment
+      .pipe(plugins.if(production, plugins.cssnano()))
       .pipe(plugins.sourcemaps.write('./maps'))
       .pipe(gulp.dest('public/css/'))
-      .pipe(plugins.rename({
-        suffix: '.min'
-      }))
-      .pipe(plugins.cssnano())
-      .pipe(cachebust.resources())
-      .pipe(plugins.rename('application.min.css'))
-      .pipe(gulp.dest('public/css/'))
+      .pipe(plugins.size({ title: 'After:', showFiles: true }))
       .pipe(plugins.browserSync.reload({
         stream: true
       }));

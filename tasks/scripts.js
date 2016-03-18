@@ -6,7 +6,7 @@ export function transpileScripts(gulp, plugins, paths) {
     gulp.src(paths.scripts)
       .pipe(plugins.sourcemaps.init())
       .pipe(plugins.babel())
-      .pipe(plugins.concat('bundle.min.js'))
+      .pipe(plugins.concat('main.js'))
       .pipe(plugins.uglify({ preserveComments: 'some' }))
       // Output files
       .pipe(plugins.sourcemaps.write('./maps'))

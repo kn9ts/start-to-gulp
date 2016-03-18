@@ -1,6 +1,6 @@
 export function transformScriptsFromBrowserify(gulp, plugins) {
-  console.log('Enviroment: ' + String(process.env.ENV));
   const production = (process.env.ENV == 'production');
+  // console.log('Enviroment: ' + String(process.env.ENV));
 
   return () => {
     var b = plugins.browserify({
@@ -20,9 +20,12 @@ export function transformScriptsFromBrowserify(gulp, plugins) {
 
     return b.bundle()
       .pipe(plugins.source('main.js'))
+      .pipe(plugins.size({ title: 'Before Minification:', showFiles: true }))
       // vinyl-source-stream makes the bundle compatible with gulp
       .pipe(plugins.buffer())
-      .pipe(plugins.rename(production ? 'main.min.js' : 'main.js'))
+      // in PRODUCTION env, it should be minified but retain the name so that
+      // one is not required to change the reference of the file in the script src links
+      // .pipe(plugins.rename(production ? 'main.min.js' : 'main.js'))
       .pipe(plugins.sourcemaps.init({
         loadMaps: true
       }))
@@ -32,6 +35,7 @@ export function transformScriptsFromBrowserify(gulp, plugins) {
       .on('error', plugins.util.log)
       .pipe(plugins.sourcemaps.write('./maps'))
       .pipe(gulp.dest('./public/js/'))
+      .pipe(plugins.size({ title: 'After Minification:', showFiles: true }))
       .pipe(plugins.browserSync.reload({
         stream: true
       }));
