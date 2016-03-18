@@ -1,0 +1,33 @@
+{
+  "parser": "babel-eslint",
+  "extends": "eslint:recommended",
+  "rules": {
+    "indent": 0,
+    "quotes": [2, "single"],
+    "linebreak-style": [2, "unix"],
+    "semi": [2, "always"],
+    "no-console": 0,
+    "no-case-declarations": 0,
+    "no-class-assign": 0,
+    "no-const-assign": 0,
+    "no-dupe-class-members": 0,
+    "no-empty-pattern": 0,
+    "no-new-symbol": 0,
+    "no-self-assign": 0,
+    "no-this-before-super": 0,
+    "no-unexpected-multiline": 0,
+    "no-unused-labels": 0,
+    "constructor-super": 0
+  },
+  "env": {
+    "es6": true,
+    "node": true,
+    "browser": true,
+    "jasmine": true,
+    "mocha": true
+  },
+  "ecmaFeatures": {
+    "jsx": true
+  },
+  "plugins": []
+}

@@ -13,8 +13,8 @@ export function browserSync(gulp, plugins, paths) {
     // spun up a static server
     config.server = {
       baseDir: paths.serveURL ? paths.serveURL : './public'
-    }
-  };
+    };
+  }
 
   return () => {
     plugins.browserSync.init(config);
