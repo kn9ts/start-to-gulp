@@ -10,11 +10,6 @@ import buffer from 'vinyl-buffer';
 
 var tasks = {};
 
-// If you're serving your application using node.js
-// use the option commented and set the correct proxy you are using
-// For express is usually: 3000
-const serverURL = './public'; // localhost:3000
-
 // This gulp's file base bath should be the root of the project
 const basename = path.basename(module.filename);
 
@@ -44,7 +39,11 @@ const paths = {
   backendScripts: 'server/**/*.+(js|coffee)',
   unitTests: [],
   serverTests: ['tests/server/**/*.spec.js'],
-  libTests: ['public/vendor/**/tests/**/*.js']
+  libTests: ['public/vendor/**/tests/**/*.js'],
+  // If you're serving your application using node.js
+  // use the option commented and set the correct proxy you are using
+  // For express is usually: localhost:3000
+  serverURL: './public'; // localhost:3000
 };
 
 // Plugins that do not start with 'gulp' have to loaded up manually
@@ -85,8 +84,7 @@ fs.readdirSync(path.join(__dirname, './tasks'))
 gulp.task('clean-styles', tasks.cleanStyles(gulp, plugins));
 gulp.task('clean-scripts', tasks.cleanScripts(gulp, plugins));
 
-gulp.task('nodemon', tasks.nodemon(gulp, plugins));
-gulp.task('browser-sync', tasks.browsersync(gulp, plugins, serverURL));
+gulp.task('browser-sync', tasks.browsersync(gulp, plugins, paths));
 gulp.task('bower', tasks.bower(gulp, plugins));
 
 gulp.task('jade', tasks.jade(gulp, plugins, paths));
@@ -109,7 +107,9 @@ gulp.task('sync', ['clean', 'default', 'browser-sync']);
 // if was, high chances is that you're using node.js to serve your application
 // if not, then browserify can be used to serve up the app statically
 try {
-  require('gulp-nodemon');
+  let nodemon = require('gulp-nodemon');
+  gulp.task('nodemon', tasks.nodemon(gulp, plugins));
+
   gulp.task('default', ['nodemon', 'watch', 'build']);
   gulp.task('production', ['nodemon', 'build']);
 } catch (e) {
