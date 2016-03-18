@@ -22,13 +22,14 @@ const paths = {
   public: 'public/**',
   images: 'app/images/**/*',
   jade: [
+    '!app/layouts/*.jade',
     '!app/includes/*.jade',
-    'app/**/*.jade'
+    'app/views/*.jade'
   ],
   styles: [
-    'app/styles/*.+(less|css)',
-    'app/styles/layouts/*.+(less|css)',
-    'app/styles/base/*.+(less|css)'
+    'app/styles/less/*.+(less|css)',
+    '!app/styles/less/layouts/*.+(less|css)',
+    '!app/styles/less/base/*.+(less|css)'
   ],
   staticFiles: [
     '!app/**/*.+(less|css|js|jade)',
@@ -84,6 +85,7 @@ fs.readdirSync(path.join(__dirname, './tasks'))
 // console.log(tasks);
 gulp.task('clean-styles', tasks.cleanStyles(gulp, plugins));
 gulp.task('clean-scripts', tasks.cleanScripts(gulp, plugins));
+gulp.task('clean-html', tasks.cleanHtml(gulp, plugins));
 
 gulp.task('bower', tasks.bower(gulp, plugins));
 gulp.task('browser-sync', tasks.browsersync(gulp, plugins, paths));
