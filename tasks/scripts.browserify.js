@@ -20,7 +20,7 @@ export function transformScriptsFromBrowserify(gulp, plugins) {
 
     return b.bundle()
       .pipe(plugins.source('main.js'))
-      .pipe(plugins.size({ title: 'Before Minification:', showFiles: true }))
+      .pipe(plugins.size({ title: 'Before:', showFiles: true }))
       // vinyl-source-stream makes the bundle compatible with gulp
       .pipe(plugins.buffer())
       // in PRODUCTION env, it should be minified but retain the name so that
@@ -35,7 +35,7 @@ export function transformScriptsFromBrowserify(gulp, plugins) {
       .on('error', plugins.util.log)
       .pipe(plugins.sourcemaps.write('./maps'))
       .pipe(gulp.dest('./public/js/'))
-      .pipe(plugins.size({ title: 'After Minification:', showFiles: true }))
+      .pipe(plugins.size({ title: 'After:', showFiles: true }))
       .pipe(plugins.browserSync.reload({
         stream: true
       }));

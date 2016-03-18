@@ -4,13 +4,18 @@ export function transpileScripts(gulp, plugins, paths) {
   // to be correctly concatenated
   return () => {
     gulp.src(paths.scripts)
+      .pipe(plugins.size({ title: 'Before:', showFiles: true }))
       .pipe(plugins.sourcemaps.init())
       .pipe(plugins.babel())
       .pipe(plugins.concat('main.js'))
       .pipe(plugins.uglify({ preserveComments: 'some' }))
       // Output files
       .pipe(plugins.sourcemaps.write('./maps'))
-      .pipe(gulp.dest('public/js/'));
+      .pipe(gulp.dest('public/js/'))
+      .pipe(plugins.size({ title: 'After:', showFiles: true }))
+      .pipe(plugins.browserSync.reload({
+        stream: true
+      }));
   };
 };
 
