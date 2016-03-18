@@ -82,7 +82,7 @@ fs.readdirSync(path.join(__dirname, './tasks'))
   });
 
 
-console.log(tasks);
+// console.log('List of tasks loaded: \n', tasks);
 gulp.task('clean-styles', tasks.cleanStyles(gulp, plugins));
 gulp.task('clean-scripts', tasks.cleanScripts(gulp, plugins));
 gulp.task('clean-html', tasks.cleanHtml(gulp, plugins));
