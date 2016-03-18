@@ -1,9 +1,9 @@
 export function nodemonServer(gulp, plugins) {
   return () => {
     plugins.nodemon({
-        script: 'index.js',
+        script: './index.js',
         ext: 'js',
-        ignore: ['public/', 'node_modules/']
+        ignore: ['./public/', './node_modules/']
       })
       .on('change', ['lint'])
       .on('restart', () => {

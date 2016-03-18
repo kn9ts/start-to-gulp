@@ -16,8 +16,6 @@ export function browserSync(gulp, plugins, paths) {
     };
   }
 
-  return () => {
-    plugins.browserSync.init(config);
-  };
+  return () => plugins.browserSync.init(config);
 }
 
