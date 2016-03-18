@@ -80,21 +80,24 @@ fs.readdirSync(path.join(__dirname, './tasks'))
     tasks[filename.toCamelCase()] = module[Object.keys(module)[0]];
   });
 
+
 // console.log(tasks);
 gulp.task('clean-styles', tasks.cleanStyles(gulp, plugins));
 gulp.task('clean-scripts', tasks.cleanScripts(gulp, plugins));
 
-gulp.task('browser-sync', tasks.browsersync(gulp, plugins, paths));
 gulp.task('bower', tasks.bower(gulp, plugins));
+gulp.task('browser-sync', tasks.browsersync(gulp, plugins, paths));
 
 gulp.task('jade', tasks.jade(gulp, plugins, paths));
 gulp.task('less', tasks.less(gulp, plugins, paths));
+gulp.task('html', tasks.html(gulp, plugins, paths));
+
 gulp.task('browserify', tasks.browserify(gulp, plugins, paths));
+gulp.task('scripts', tasks.scripts(gulp, plugins, paths));
 
 gulp.task('images', tasks.images(gulp, plugins, paths));
 gulp.task('static-files', tasks.staticFiles(gulp, plugins, paths));
-gulp.task('html', tasks.html(gulp, plugins, paths));
-gulp.task('scripts', tasks.scripts(gulp, plugins, paths));
+
 
 // helpers tasks
 gulp.task('clean', ['clean-scripts', 'clean-styles']);
