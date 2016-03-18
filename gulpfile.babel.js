@@ -43,7 +43,7 @@ const paths = {
   // If you're serving your application using node.js
   // use the option commented and set the correct proxy you are using
   // For express is usually: localhost:3000
-  serverURL: './public'; // localhost:3000
+  serverURL: './public' // localhost:3000
 };
 
 // Plugins that do not start with 'gulp' have to loaded up manually

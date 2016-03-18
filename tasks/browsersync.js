@@ -12,7 +12,7 @@ export function browserSync(gulp, plugins, paths) {
     // if no path or the path provided is a directory path
     // spun up a static server
     config.server = {
-      baseDir: paths.serveURL ? paths.serveURL : "./public";
+      baseDir: paths.serveURL ? paths.serveURL : "./public"
     }
   }
 
