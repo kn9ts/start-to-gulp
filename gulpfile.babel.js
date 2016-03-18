@@ -110,7 +110,7 @@ gulp.task('sync', ['clean', 'default', 'browser-sync']);
 // if was, high chances is that you're using node.js to serve your application
 // if not, then browserify can be used to serve up the app statically
 try {
-  let nodemon = require('gulp-nodemon');
+  require('gulp-nodemon');
   gulp.task('nodemon', tasks.nodemon(gulp, plugins));
 
   gulp.task('default', ['nodemon', 'watch', 'build']);
