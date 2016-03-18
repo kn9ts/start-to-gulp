@@ -1,14 +1,19 @@
-export function browserSync(gulp, plugins, url) {
+export function browserSync(gulp, plugins, paths) {
   var config = {};
-  // if no path or the path provided is a directory path
-  // spun up a static server
-  if (!url || url.indexOf('./')) {
+
+  // check if nodemon has been installed
+  // high chances is that you're using node.js/nodemon to serve your application
+  // if not, then use browseSync's static server
+  try {
+    // spun up a proxy server
+    require('gulp-nodemon');
+    config.proxy = paths.serveURL ? paths.serveURL : 'localhost:3000';
+  } catch (err) {
+    // if no path or the path provided is a directory path
+    // spun up a static server
     config.server = {
-      baseDir: url ? url : "./public";
+      baseDir: paths.serveURL ? paths.serveURL : "./public";
     }
-  } else {
-    // else spun up a proxy server
-    config.proxy = url ? url : 'localhost:3000';
   }
 
   return () => {
