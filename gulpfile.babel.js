@@ -82,7 +82,7 @@ fs.readdirSync(path.join(__dirname, './tasks'))
   });
 
 
-// console.log(tasks);
+console.log(tasks);
 gulp.task('clean-styles', tasks.cleanStyles(gulp, plugins));
 gulp.task('clean-scripts', tasks.cleanScripts(gulp, plugins));
 gulp.task('clean-html', tasks.cleanHtml(gulp, plugins));
@@ -94,7 +94,7 @@ gulp.task('jade', tasks.jade(gulp, plugins, paths));
 gulp.task('less', tasks.less(gulp, plugins, paths));
 gulp.task('html', tasks.html(gulp, plugins, paths));
 
-gulp.task('browserify', tasks.browserify(gulp, plugins, paths));
+gulp.task('browserify', tasks.scriptsBrowserify(gulp, plugins, paths));
 gulp.task('scripts', tasks.scripts(gulp, plugins, paths));
 
 gulp.task('images', tasks.images(gulp, plugins, paths));
@@ -102,7 +102,7 @@ gulp.task('static-files', tasks.staticFiles(gulp, plugins, paths));
 
 
 // helpers tasks
-gulp.task('clean', ['clean-scripts', 'clean-styles']);
+gulp.task('clean', ['clean-scripts', 'clean-styles', 'clean-html']);
 
 // default tasks
 gulp.task('build', ['jade', 'less', 'static-files', 'images', 'browserify', 'bower']);
