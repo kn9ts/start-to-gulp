@@ -1,11 +1,11 @@
 export function htmlCompileAdvanced(gulp, plugins) {
   return () => {
-    gulp.src('../app/**/*.html')
+    gulp.src('../public/**/*.html')
       .pipe(plugins.useref({ searchPath: '{.tmp,app}' }))
       // Remove any unused CSS
       .pipe(plugins.if('*.css', uncss({
         html: [
-          'app/index.html'
+          './public/**/*.html'
         ],
         // CSS Selectors for UnCSS to ignore
         ignore: []
