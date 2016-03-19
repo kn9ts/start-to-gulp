@@ -14,9 +14,7 @@ export function preprocessLess(gulp, plugins, paths) {
       .pipe(plugins.autoprefixer('last 5 versions'))
       // Remove any unused CSS
       .pipe(plugins.uncss({
-        html: [
-          './public/**/*.html'
-        ],
+        html: [process.env.PROJECT_BUILD_FOLDER + '/**/*.html'],
         // CSS Selectors for UnCSS to ignore
         ignore: []
       }))
@@ -24,7 +22,7 @@ export function preprocessLess(gulp, plugins, paths) {
       // minify on production environment
       .pipe(plugins.if(production, plugins.cssnano()))
       .pipe(plugins.sourcemaps.write('./maps'))
-      .pipe(gulp.dest('public/css/'))
+      .pipe(gulp.dest(process.env.PROJECT_BUILD_FOLDER + '/css/'))
       .pipe(plugins.size({ title: 'After:', showFiles: true }))
       .pipe(plugins.browserSync.reload({
         stream: true

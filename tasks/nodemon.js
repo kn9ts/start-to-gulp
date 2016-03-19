@@ -3,7 +3,7 @@ export function nodemonServer(gulp, plugins) {
     plugins.nodemon({
         script: './index.js',
         ext: 'js',
-        ignore: ['./public/', './node_modules/']
+        ignore: [process.env.PROJECT_BUILD_FOLDER, './node_modules']
       })
       .on('change', ['lint'])
       .on('restart', () => {

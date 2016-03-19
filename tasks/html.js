@@ -1,6 +1,6 @@
 export function htmlCompile(gulp, plugins) {
   return () => {
-    return gulp.src('../public/**/*.html')
+    return gulp.src(process.env.PROJECT_BUILD_FOLDER + '/**/*.html')
       // Minify any HTML
       .pipe(plugins.htmlmin({
         removeComments: true,
@@ -15,7 +15,7 @@ export function htmlCompile(gulp, plugins) {
       }))
       // Output files
       .pipe(plugins.size({ title: 'html', showFiles: true }))
-      .pipe(gulp.dest('public'));
+      .pipe(gulp.dest(process.env.PROJECT_BUILD_FOLDER));
   };
 };
 

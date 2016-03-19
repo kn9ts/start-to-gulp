@@ -8,7 +8,7 @@ export function compileJade(gulp, plugins, paths) {
       .pipe(plugins.jade({
         locals: LOCAL_SETTINGS
       }))
-      .pipe(gulp.dest('./public/'));
+      .pipe(gulp.dest(process.env.PROJECT_BUILD_FOLDER));
   };
 };
 
