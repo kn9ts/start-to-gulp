@@ -1,6 +1,7 @@
 # START TO GULP
-#### __HTML5__ starter kit for creating HTML5 applications (both web and mobile) and User Interfaces (UIs),
-intergrated with __GULPJS__ for fast, clean and optimized code base.
+
+__HTML5__ starter kit for creating HTML5 applications (both web and mobile) and client facing user interfaces (UIs), 
+intergrated with __Gulpjs__ for fast, clean and optimized code base.
 
 It has all the necessary requirements to get anyone started in creating apps fast and easy using gulp.
 
