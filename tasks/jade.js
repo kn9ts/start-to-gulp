@@ -1,9 +1,9 @@
 export function compileJade(gulp, plugins, paths) {
-  return () => {
-    var LOCAL_SETTINGS = {
-      pretty: true
-    };
+  var LOCAL_SETTINGS = {
+    pretty: true
+  };
 
+  return () => {
     gulp.src(paths.jade)
       .pipe(plugins.jade({
         locals: LOCAL_SETTINGS
