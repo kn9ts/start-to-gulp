@@ -18,8 +18,8 @@ const basename = path.basename(module.filename);
 // can also be changed from here
 if (!process.env.PROJECT_BUILD_FOLDER) {
   process.env.PROJECT_BUILD_FOLDER = './public';
-  tasks.buildFolder = process.env.PROJECT_BUILD_FOLDER;
 }
+tasks.projectBuildFolder = process.env.PROJECT_BUILD_FOLDER;
 
 // Loads up all 'gulp-*' dependencies saved in package.json
 const plugins = loadGulpPlugins();
