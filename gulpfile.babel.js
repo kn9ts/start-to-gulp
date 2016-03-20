@@ -30,10 +30,11 @@ const paths = {
   public: 'public/**',
   images: 'app/images/**/*',
   jade: [
-    '!app/layouts/*.jade',
-    '!app/includes/*.jade',
+    '!app/views/layouts/*.jade',
+    '!app/views/includes/*.jade',
     'app/views/*.jade'
   ],
+  html: 'public/*.html',
   styles: [
     'app/styles/less/*.+(less|css)',
     '!app/styles/less/layouts/*.+(less|css)',
@@ -46,6 +47,7 @@ const paths = {
   ],
   scripts: 'app/scripts/**/*.js',
   backendScripts: 'server/**/*.+(js|coffee)',
+  builtScripts: 'public/js/**/*.js',
   unitTests: [],
   serverTests: ['tests/server/**/*.spec.js'],
   libTests: ['public/vendor/**/tests/**/*.js'],
@@ -58,11 +60,13 @@ const paths = {
 // Plugins that do not start with 'gulp' have to loaded up manually
 // and injected into the plugins object carrying
 // the previously loaded up gulp plugins
-browserSync.create();
 plugins.browserSync = browserSync;
 plugins.browserify = browserify;
 plugins.source = source;
 plugins.buffer = buffer;
+
+// initialise browserSync
+plugins.browserSync.create();
 
 // Require this to convert different ways of naming files into carmel case
 // eg. clean-script.js, clean.scripts.js, clean_scripts.js, static_files-public.js
@@ -89,7 +93,6 @@ fs.readdirSync(path.join(__dirname, './tasks'))
     tasks[filename.toCamelCase()] = module[Object.keys(module)[0]];
   });
 
-
 // console.log('List of tasks loaded: \n', tasks);
 gulp.task('clean-styles', tasks.cleanStyles(gulp, plugins));
 gulp.task('clean-scripts', tasks.cleanScripts(gulp, plugins));
@@ -108,6 +111,19 @@ gulp.task('scripts', tasks.scripts(gulp, plugins, paths));
 gulp.task('images', tasks.images(gulp, plugins, paths));
 gulp.task('static-files', tasks.staticFiles(gulp, plugins, paths));
 
+// Files to watch
+gulp.task('watch', () => {
+  gulp.watch(paths.jade.map(p => p.replace(/\!/g, '')), ['jade'], plugins.browserSync.reload);
+  // for less browser is reloaded from the task pipeline
+  gulp.watch(paths.styles.map(p => p.replace(/\!/g, '')), ['less']);
+  gulp.watch(paths.scripts, ['browserify'], plugins.browserSync.reload);
+  gulp.watch(['./gulpfile.babel.js', './tasks/**/*.js'], ['build'], plugins.browserSync.reload);
+
+  // BUGFIX: Does not reload when jade files compile to HTML
+  // So watching for HTML changes instead in the build dir
+  gulp.watch(paths.html).on('change', plugins.browserSync.reload);
+  gulp.watch(paths.builtScripts).on('change', plugins.browserSync.reload);
+});
 
 // helpers tasks
 gulp.task('clean', ['clean-scripts', 'clean-styles', 'clean-html']);
@@ -136,12 +152,3 @@ gulp.task('heroku:staging', ['build']);
 
 // for tests
 gulp.task('test', ['test:fend', 'test:bend' /*, 'e2e' */ ]);
-
-var reload = plugins.browserSync.reload;
-gulp.task('watch', () => {
-  gulp.watch(paths.jade, ['jade'], reload);
-  gulp.watch(paths.styles, ['less'], reload);
-  gulp.watch(paths.scripts, ['browserify'], reload);
-  gulp.watch(['./gulpfile.babel.js'], ['build'], reload);
-});
-
