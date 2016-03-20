@@ -30,8 +30,8 @@ const paths = {
   public: 'public/**',
   images: 'app/images/**/*',
   jade: [
-    '!app/layouts/*.jade',
-    '!app/includes/*.jade',
+    '!app/views/layouts/*.jade',
+    '!app/views/includes/*.jade',
     'app/views/*.jade'
   ],
   styles: [
@@ -58,11 +58,13 @@ const paths = {
 // Plugins that do not start with 'gulp' have to loaded up manually
 // and injected into the plugins object carrying
 // the previously loaded up gulp plugins
-browserSync.create();
 plugins.browserSync = browserSync;
 plugins.browserify = browserify;
 plugins.source = source;
 plugins.buffer = buffer;
+
+// initialise browserSync
+plugins.browserSync.create();
 
 // Require this to convert different ways of naming files into carmel case
 // eg. clean-script.js, clean.scripts.js, clean_scripts.js, static_files-public.js
@@ -139,9 +141,8 @@ gulp.task('test', ['test:fend', 'test:bend' /*, 'e2e' */ ]);
 
 var reload = plugins.browserSync.reload;
 gulp.task('watch', () => {
-  gulp.watch(paths.jade, ['jade'], reload);
-  gulp.watch(paths.styles, ['less'], reload);
+  gulp.watch(paths.jade.map((p) => p.replace(/\!/g, '')), ['jade'], reload);
+  gulp.watch(paths.styles.map((p) => p.replace(/\!/g, '')), ['less']);
   gulp.watch(paths.scripts, ['browserify'], reload);
   gulp.watch(['./gulpfile.babel.js'], ['build'], reload);
 });
-
