@@ -11,7 +11,7 @@ export function transpileScripts(gulp, plugins, paths) {
       .pipe(plugins.uglify({ preserveComments: 'some' }))
       // Output files
       .pipe(plugins.sourcemaps.write('./maps'))
-      .pipe(gulp.dest('public/js/'))
+      .pipe(gulp.dest(process.env.PROJECT_BUILD_FOLDER + '/js'))
       .pipe(plugins.size({ title: 'After:', showFiles: true }))
       .pipe(plugins.browserSync.reload({
         stream: true

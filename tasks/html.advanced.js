@@ -1,12 +1,10 @@
 export function htmlCompileAdvanced(gulp, plugins) {
   return () => {
-    gulp.src('../public/**/*.html')
+    gulp.src(process.env.PROJECT_BUILD_FOLDER + '/**/*.html')
       .pipe(plugins.useref({ searchPath: '{.tmp,app}' }))
       // Remove any unused CSS
       .pipe(plugins.if('*.css', uncss({
-        html: [
-          './public/**/*.html'
-        ],
+        html: [process.env.PROJECT_BUILD_FOLDER + '/**/*.html'],
         // CSS Selectors for UnCSS to ignore
         ignore: []
       })))
@@ -27,7 +25,7 @@ export function htmlCompileAdvanced(gulp, plugins) {
       })))
       // Output files
       .pipe(plugins.if('*.html', size({ title: 'html', showFiles: true })))
-      .pipe(gulp.dest('dist'));
+      .pipe(gulp.dest(process.env.PROJECT_BUILD_FOLDER));
   };
 };
 

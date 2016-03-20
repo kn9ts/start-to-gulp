@@ -34,7 +34,7 @@ export function transformScriptsFromBrowserify(gulp, plugins) {
       // .pipe(plugins.if(production, plugins.rename('main.min.js')))
       .on('error', plugins.util.log)
       .pipe(plugins.sourcemaps.write('./maps'))
-      .pipe(gulp.dest('./public/js/'))
+      .pipe(gulp.dest(process.env.PROJECT_BUILD_FOLDER + '/js'))
       .pipe(plugins.size({ title: 'After:', showFiles: true }))
       .pipe(plugins.browserSync.reload({
         stream: true

@@ -13,6 +13,14 @@ var tasks = {};
 // This gulp's file base bath should be the root of the project
 const basename = path.basename(module.filename);
 
+// if developer does not provide a new[optional] build folder
+// it defaults to './public'
+// can also be changed from here
+if (!process.env.PROJECT_BUILD_FOLDER) {
+  process.env.PROJECT_BUILD_FOLDER = './public';
+}
+tasks.projectBuildFolder = process.env.PROJECT_BUILD_FOLDER;
+
 // Loads up all 'gulp-*' dependencies saved in package.json
 const plugins = loadGulpPlugins();
 
@@ -44,7 +52,7 @@ const paths = {
   // If you're serving your application using node.js
   // use the option commented and set the correct proxy you are using
   // For express is usually: localhost:3000
-  serverURL: './public' // localhost:3000
+  serverURL: process.env.PROJECT_BUILD_FOLDER // localhost:3000
 };
 
 // Plugins that do not start with 'gulp' have to loaded up manually

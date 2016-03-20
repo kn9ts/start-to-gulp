@@ -6,7 +6,7 @@ export function optimiseImages(gulp, plugins) {
         progressive: true,
         interlaced: true
       })))
-      .pipe(gulp.dest('public/images'))
+      .pipe(gulp.dest(process.env.PROJECT_BUILD_FOLDER + '/images'))
       .pipe(plugins.size({ title: 'images' }));
   };
 }
