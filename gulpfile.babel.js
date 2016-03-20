@@ -34,6 +34,7 @@ const paths = {
     '!app/views/includes/*.jade',
     'app/views/*.jade'
   ],
+  html: 'public/*html',
   styles: [
     'app/styles/less/*.+(less|css)',
     '!app/styles/less/layouts/*.+(less|css)',
@@ -141,8 +142,12 @@ gulp.task('test', ['test:fend', 'test:bend' /*, 'e2e' */ ]);
 
 var reload = plugins.browserSync.reload;
 gulp.task('watch', () => {
-  gulp.watch(paths.jade.map((p) => p.replace(/\!/g, '')), ['jade'], reload);
-  gulp.watch(paths.styles.map((p) => p.replace(/\!/g, '')), ['less']);
+  // BUG: Does not reload when jade files compile to HTML
+  // So watching for HTML changes instead in the build dir
+  gulp.watch(paths.jade.map(p => p.replace(/\!/g, '')), ['jade']);
+  gulp.watch(paths.html).on('change', plugins.browserSync.reload);
+  // reloaded from the task pipeline
+  gulp.watch(paths.styles.map(p => p.replace(/\!/g, '')), ['less']);
   gulp.watch(paths.scripts, ['browserify'], reload);
-  gulp.watch(['./gulpfile.babel.js'], ['build'], reload);
+  gulp.watch(['./gulpfile.babel.js', './tasks/**/*.js'], ['build'], reload);
 });
