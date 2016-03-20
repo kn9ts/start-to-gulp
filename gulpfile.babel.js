@@ -34,7 +34,7 @@ const paths = {
     '!app/views/includes/*.jade',
     'app/views/*.jade'
   ],
-  html: 'public/*html',
+  html: 'public/*.html',
   styles: [
     'app/styles/less/*.+(less|css)',
     '!app/styles/less/layouts/*.+(less|css)',
@@ -47,6 +47,7 @@ const paths = {
   ],
   scripts: 'app/scripts/**/*.js',
   backendScripts: 'server/**/*.+(js|coffee)',
+  builtScripts: 'public/js/**/*.js',
   unitTests: [],
   serverTests: ['tests/server/**/*.spec.js'],
   libTests: ['public/vendor/**/tests/**/*.js'],
@@ -92,7 +93,6 @@ fs.readdirSync(path.join(__dirname, './tasks'))
     tasks[filename.toCamelCase()] = module[Object.keys(module)[0]];
   });
 
-
 // console.log('List of tasks loaded: \n', tasks);
 gulp.task('clean-styles', tasks.cleanStyles(gulp, plugins));
 gulp.task('clean-scripts', tasks.cleanScripts(gulp, plugins));
@@ -111,6 +111,19 @@ gulp.task('scripts', tasks.scripts(gulp, plugins, paths));
 gulp.task('images', tasks.images(gulp, plugins, paths));
 gulp.task('static-files', tasks.staticFiles(gulp, plugins, paths));
 
+// Files to watch
+gulp.task('watch', () => {
+  gulp.watch(paths.jade.map(p => p.replace(/\!/g, '')), ['jade'], plugins.browserSync.reload);
+  // for less browser is reloaded from the task pipeline
+  gulp.watch(paths.styles.map(p => p.replace(/\!/g, '')), ['less']);
+  gulp.watch(paths.scripts, ['browserify'], plugins.browserSync.reload);
+  gulp.watch(['./gulpfile.babel.js', './tasks/**/*.js'], ['build'], plugins.browserSync.reload);
+
+  // BUGFIX: Does not reload when jade files compile to HTML
+  // So watching for HTML changes instead in the build dir
+  gulp.watch(paths.html).on('change', plugins.browserSync.reload);
+  gulp.watch(paths.builtScripts).on('change', plugins.browserSync.reload);
+});
 
 // helpers tasks
 gulp.task('clean', ['clean-scripts', 'clean-styles', 'clean-html']);
@@ -139,15 +152,3 @@ gulp.task('heroku:staging', ['build']);
 
 // for tests
 gulp.task('test', ['test:fend', 'test:bend' /*, 'e2e' */ ]);
-
-var reload = plugins.browserSync.reload;
-gulp.task('watch', () => {
-  // BUG: Does not reload when jade files compile to HTML
-  // So watching for HTML changes instead in the build dir
-  gulp.watch(paths.jade.map(p => p.replace(/\!/g, '')), ['jade']);
-  gulp.watch(paths.html).on('change', plugins.browserSync.reload);
-  // reloaded from the task pipeline
-  gulp.watch(paths.styles.map(p => p.replace(/\!/g, '')), ['less']);
-  gulp.watch(paths.scripts, ['browserify'], reload);
-  gulp.watch(['./gulpfile.babel.js', './tasks/**/*.js'], ['build'], reload);
-});
