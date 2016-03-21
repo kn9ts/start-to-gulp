@@ -113,6 +113,10 @@ gulp.task('static-files', tasks.staticFiles(gulp, plugins, paths));
 
 // Files to watch
 gulp.task('watch', () => {
+  // We want to watch all files
+  // not the only ones compiled and moved to build folder
+  // Since they import/include these other files
+  // So we remove the '!' mark, which denotes ignore from each path
   gulp.watch(paths.jade.map(p => p.replace(/\!/g, '')), ['jade'], plugins.browserSync.reload);
   // for less browser is reloaded from the task pipeline
   gulp.watch(paths.styles.map(p => p.replace(/\!/g, '')), ['less']);
