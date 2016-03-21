@@ -26,15 +26,13 @@ const plugins = loadGulpPlugins();
 
 // This are directory locations of all the files
 // that make up the project
-const paths = {
-  public: 'public/**',
+var paths = {
   images: 'app/images/**/*',
   jade: [
     '!app/views/layouts/*.jade',
     '!app/views/includes/*.jade',
     'app/views/*.jade'
   ],
-  html: 'public/*.html',
   styles: [
     'app/styles/less/*.+(less|css)',
     '!app/styles/less/layouts/*.+(less|css)',
@@ -47,7 +45,6 @@ const paths = {
   ],
   scripts: 'app/scripts/**/*.js',
   backendScripts: 'server/**/*.+(js|coffee)',
-  builtScripts: 'public/js/**/*.js',
   unitTests: [],
   serverTests: ['tests/server/**/*.spec.js'],
   libTests: ['public/vendor/**/tests/**/*.js'],
@@ -56,6 +53,10 @@ const paths = {
   // For express is usually: localhost:3000
   serverURL: process.env.PROJECT_BUILD_FOLDER // localhost:3000
 };
+
+paths.html = process.env.PROJECT_BUILD_FOLDER + '/*.html';
+paths.builtScripts = process.env.PROJECT_BUILD_FOLDER + '/js/**/*.js';
+paths.builtStyles = process.env.PROJECT_BUILD_FOLDER + '/css/**/*.css';
 
 // Plugins that do not start with 'gulp' have to loaded up manually
 // and injected into the plugins object carrying
