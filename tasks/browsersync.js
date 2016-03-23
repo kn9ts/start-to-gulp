@@ -1,5 +1,7 @@
-export function browserSync(gulp, plugins, paths) {
+export function initBrowserSync(gulp, plugins, paths) {
   var config = {};
+  config.logPrefix = 'awesome project';
+  config.reloadDebounce = 3000;
 
   // check if nodemon has been installed
   // high chances is that you're using node.js/nodemon to serve your application
@@ -17,6 +19,10 @@ export function browserSync(gulp, plugins, paths) {
   }
 
   return () => {
+    // var bs = plugins.browseSync;
+    // bs.watch(paths.html).on('change', (file) => bs.reload);
+    // bs.watch(paths.builtScripts).on('change', (file) => bs.reload);
+    // bs.watch(paths.builtStyles).on('change', (file) => bs.reload('**/*.css'));
     plugins.browserSync.init(config);
   }
 }
