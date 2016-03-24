@@ -24,9 +24,7 @@ export function preprocessLess(gulp, plugins, paths) {
       .pipe(plugins.sourcemaps.write('./maps'))
       .pipe(gulp.dest(process.env.PROJECT_BUILD_FOLDER + '/css/'))
       .pipe(plugins.size({ title: 'After:', showFiles: true }))
-      .pipe(plugins.browserSync.reload({
-        stream: true
-      }));
+      .pipe(plugins.browserSync.stream({ match: '**/*.css' }));
   };
 };
 
