@@ -51,6 +51,7 @@
     "gulp-uncss": "^1.0.5",
     "gulp-util": "^3.0.7",
     "jshint-stylish": "^2.0.1",
+    "update": "^0.4.2",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },
