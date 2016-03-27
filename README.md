@@ -3,6 +3,8 @@
 __HTML5__ starter kit for creating HTML5 applications (both web and mobile) and client facing user interfaces (UIs), 
 intergrated with __Gulpjs__ for fast, clean and optimized code base.
 
+> __UPDATE__: *Added support for ES6 using `Babelify`*
+
 It has all the necessary requirements to get anyone started in creating apps fast and easy using gulp.
 
 ##### Prefer __GRUNT__? [I've got you covered here.](http://github.com/kn9ts/start-to-grunt)
