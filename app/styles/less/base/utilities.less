@@ -3,12 +3,10 @@
 //     font-family: 'Raleway';
 //     src: local('Raleway Regular'), local('Raleway'), url('../../fonts/Raleway-Light.ttf') format('truetype');
 // }
-// @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
 @import url(https://fonts.googleapis.com/css?family=Noto+Sans);
-
 html {
     cursor: default;
-    font-family: 'Montserrat', sans-serif;
     margin: 0;
     overflow-x: hidden;
     padding: 0;
@@ -20,11 +18,28 @@ body {
     margin: 0;
     overflow-x: hidden;
     padding: 0;
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    strong {
+        font-family: 'Montserrat', sans-serif;
+    }
+    p,
+    span,
+    em,
+    b,
+    textarea,
+    input {
+        font-family: 'Noto Sans', sans-serif;
+    }
 }
 
 .wf-active {
     body {
-        font-family: 'Montserrat', sans-serif;
+        font-family: 'Noto Sans', sans-serif;
     }
 }
 
