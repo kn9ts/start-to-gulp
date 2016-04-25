@@ -4,11 +4,13 @@ import gulp from 'gulp';
 import browserSync from 'browser-sync';
 import loadGulpPlugins from 'gulp-load-plugins';
 import browserify from 'browserify';
+import babelify from 'babelify';
 import source from 'vinyl-source-stream';
 import buffer from 'vinyl-buffer';
 
 
 var tasks = {};
+const defaultBuildDirectory = './public';
 
 // This gulp's file base bath should be the root of the project
 const basename = path.basename(module.filename);
@@ -17,7 +19,7 @@ const basename = path.basename(module.filename);
 // it defaults to './public'
 // can also be changed from here
 if (!process.env.PROJECT_BUILD_FOLDER) {
-  process.env.PROJECT_BUILD_FOLDER = './public';
+  process.env.PROJECT_BUILD_FOLDER = defaultBuildDirectory;
 }
 tasks.projectBuildFolder = process.env.PROJECT_BUILD_FOLDER;
 
@@ -26,15 +28,13 @@ const plugins = loadGulpPlugins();
 
 // This are directory locations of all the files
 // that make up the project
-const paths = {
-  public: 'public/**',
+var paths = {
   images: 'app/images/**/*',
   jade: [
     '!app/views/layouts/*.jade',
     '!app/views/includes/*.jade',
-    'app/views/*.jade'
+    'app/views/**/*.jade'
   ],
-  html: 'public/*.html',
   styles: [
     'app/styles/less/*.+(less|css)',
     '!app/styles/less/layouts/*.+(less|css)',
@@ -47,7 +47,6 @@ const paths = {
   ],
   scripts: 'app/scripts/**/*.js',
   backendScripts: 'server/**/*.+(js|coffee)',
-  builtScripts: 'public/js/**/*.js',
   unitTests: [],
   serverTests: ['tests/server/**/*.spec.js'],
   libTests: ['public/vendor/**/tests/**/*.js'],
@@ -57,11 +56,17 @@ const paths = {
   serverURL: process.env.PROJECT_BUILD_FOLDER // localhost:3000
 };
 
+// build directories for individual type of files
+paths.html = process.env.PROJECT_BUILD_FOLDER + '/*.html';
+paths.builtScripts = process.env.PROJECT_BUILD_FOLDER + '/js/**/*.js';
+paths.builtStyles = process.env.PROJECT_BUILD_FOLDER + '/css/**/*.css';
+
 // Plugins that do not start with 'gulp' have to loaded up manually
 // and injected into the plugins object carrying
 // the previously loaded up gulp plugins
 plugins.browserSync = browserSync;
 plugins.browserify = browserify;
+plugins.babelify = babelify;
 plugins.source = source;
 plugins.buffer = buffer;
 
@@ -112,25 +117,31 @@ gulp.task('images', tasks.images(gulp, plugins, paths));
 gulp.task('static-files', tasks.staticFiles(gulp, plugins, paths));
 
 // Files to watch
+var reloadBrowser = plugins.browserSync.reload;
 gulp.task('watch', () => {
-  gulp.watch(paths.jade.map(p => p.replace(/\!/g, '')), ['jade'], plugins.browserSync.reload);
-  // for less browser is reloaded from the task pipeline
+  // We want to watch all files
+  // not the only ones compiled and moved to build folder
+  // Since they import/include these other files
+  // So we remove the '!' mark, which denotes ignore from each path
+  gulp.watch(paths.jade.map(p => p.replace(/\!/g, '')), ['jade']);
   gulp.watch(paths.styles.map(p => p.replace(/\!/g, '')), ['less']);
-  gulp.watch(paths.scripts, ['browserify'], plugins.browserSync.reload);
-  gulp.watch(['./gulpfile.babel.js', './tasks/**/*.js'], ['build'], plugins.browserSync.reload);
+  gulp.watch(paths.scripts, ['browserify']);
+  gulp.watch(['./gulpfile.babel.js', './tasks/**/*.js'], ['build']);
 
-  // BUGFIX: Does not reload when jade files compile to HTML
-  // So watching for HTML changes instead in the build dir
-  gulp.watch(paths.html).on('change', plugins.browserSync.reload);
-  gulp.watch(paths.builtScripts).on('change', plugins.browserSync.reload);
+  // var reloadBrowserOnChange = (event) => {
+  //   if (event.type == 'changed') {
+  //     reloadBrowser();
+  //   }
+  // };
+
+  // gulp.watch(paths.html, reloadBrowserOnChange);
+  // gulp.watch(paths.builtScripts, reloadBrowserOnChange);
+  // gulp.watch(paths.builtStyles, reloadBrowserOnChange);
 });
+
 
 // helpers tasks
 gulp.task('clean', ['clean-scripts', 'clean-styles', 'clean-html']);
-
-// default tasks
-gulp.task('build', ['jade', 'less', 'static-files', 'images', 'browserify', 'bower']);
-gulp.task('sync', ['clean', 'default', 'browser-sync']);
 
 // Check if nodemon exists, was installed by you
 // if was, high chances is that you're using node.js to serve your application
@@ -145,6 +156,10 @@ try {
   gulp.task('default', ['watch', 'build']);
   gulp.task('production', ['build']);
 }
+
+// default tasks
+gulp.task('build', ['jade', 'less', 'static-files', 'images', 'browserify', 'bower']);
+gulp.task('sync', ['clean', 'default', 'browser-sync']);
 
 // for heroku
 gulp.task('heroku:production', ['build']);
