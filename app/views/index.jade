@@ -1,18 +1,26 @@
 extends layouts/master
 
 block content
+    .navbar.navbar-default.navbar-inverse(style="border-radius: 0")
+        .container-fluid
+            .navbar-header
+                button(type="button" datta-toggle="collapsed" data-target="#header-navbar" aria-expanded="false").navbar-toggle.collapsed
+                    span.sr-only Toggle Navigation
+                    span.icon-bar
+                    span.icon-bar
+                    span.icon-bar
+                a(href="https://github.com/kn9ts/start-to-gulp").navbar-brand
+                    img(alt="Site Logo" style="height: 100%; width: auto" src="./images/html5logos/original.png")
+
+            .collapse.navbar-collapse.pull-right(id="header-navbar")
+                ul.nav.navbar-nav
+                    li.active: a(href='#') Home
+                    li: a(href='#') About
+                    li: a(href='#') Contact
+
     .row
         .col-sm-offset-2.col-sm-8.col-xs-12
             .container-fluid
-                .header
-                    .row
-                        .col-xs-12.col-sm-5.text-center
-                            h3.text-muted Start to gulp
-                        .col-xs-12.col-sm-7
-                            ul.nav.nav-pills.small-padding
-                                li.active: a(href='#') Home
-                                li: a(href='#') About
-                                li: a(href='#') Contact
                 .space
                 .jumbotron.text-center
                     h1 'Ayyee, 'Ayyee!
@@ -22,6 +30,7 @@ block content
                             span.fa.fa-check-square-o &nbsp;
                             | Hapo Sawaa Kaabisa!
 
-                h3.text-lead.text-center
-                    | Want some explanation about <b>"Starting to gulp"</b> is 
-                    a(target="_blank" href="http://github.com/kn9ts/start-to-gulp/") &nbsp;click HERE
+                p.lead.text-center
+                    | Don't forget you can always find more information on 
+                    a(target="_blank" href="https://github.com/kn9ts/start-to-gulp/") 
+                        strong.red starting to gulp repo

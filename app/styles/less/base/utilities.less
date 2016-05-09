@@ -1,12 +1,12 @@
 // Global and common CSS classes and ids go here
-@font-face {
-    font-family: 'Raleway';
-    src: local('Raleway Regular'), local('Raleway'), url('../../fonts/Raleway-Light.ttf') format('truetype');
-}
-
+// @font-face {
+//     font-family: 'Raleway';
+//     src: local('Raleway Regular'), local('Raleway'), url('../../fonts/Raleway-Light.ttf') format('truetype');
+// }
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+@import url(https://fonts.googleapis.com/css?family=Noto+Sans);
 html {
     cursor: default;
-    font-family: 'Raleway', sans-serif;
     margin: 0;
     overflow-x: hidden;
     padding: 0;
@@ -14,15 +14,32 @@ html {
 
 body {
     cursor: default;
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Noto Sans', sans-serif;
     margin: 0;
     overflow-x: hidden;
     padding: 0;
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    strong {
+        font-family: 'Montserrat', sans-serif;
+    }
+    p,
+    span,
+    em,
+    b,
+    textarea,
+    input {
+        font-family: 'Noto Sans', sans-serif;
+    }
 }
 
 .wf-active {
     body {
-        font-family: 'raleway', sans-serif;
+        font-family: 'Noto Sans', sans-serif;
     }
 }
 
@@ -219,7 +236,6 @@ a {
 
 .uppercase {
     text-transform: uppercase;
-    text-transform: uppercase;
 }
 
 .clear {
@@ -274,12 +290,8 @@ a {
     visibility: none;
 }
 
-.normal {
+.font-normal {
     font-weight: normal;
-}
-
-.small-padding {
-    padding: 0.3em;
 }
 
 .error {
@@ -293,4 +305,3 @@ a {
     overflow-x: hidden;
     overflow-y: scroll;
 }
-
