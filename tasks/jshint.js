@@ -17,4 +17,3 @@ export function jshint(gulp, plugins) {
       }));
   };
 };
-
