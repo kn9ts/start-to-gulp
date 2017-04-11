@@ -7,13 +7,18 @@ export function transformScriptsUsingBrowserify(gulp, plugins, paths) {
         entries: './app/scripts/main.js',
         debug: true,
         paths: [paths.scripts],
-        // transform: [ /* plugins.ngAnnotate, */ plugins.babelify]
+        transform: [
+          [
+            // babel converts ES6 modules' import/export to CommonJS's require/module.exports
+            // You still need to resolve require/module.exports using browserify
+            plugins.babelify.configure(JSON.parse(require('fs').readFileSync('.babelrc'))), {
+              sourceMapsAbsolute: true,
+              global: true,
+              ignore: /\/node_modules\/(?!app\/)/
+            }
+          ],
+        ]
       })
-      // Uncomment if you're using ES6 in the browser (using babel)
-      // babel converts ES6 modules' import/export to CommonJS's require/module.exports
-      // You still need to resolve require/module.exports.
-      // If you want to use ES6/CommonJS modules. Thus the use of babelify
-      .transform(plugins.babelify)
       .bundle()
       .pipe(plugins.source('main.js'))
       // vinyl-source-stream makes the bundle compatible with gulp

@@ -27,4 +27,3 @@ export function preprocessLess(gulp, plugins, paths) {
       .pipe(plugins.browserSync.stream({ match: '**/*.css' }));
   };
 };
-

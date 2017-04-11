@@ -1,3 +1,5 @@
+'use strict';
+
 import fs from 'fs';
 import path from 'path';
 import gulp from 'gulp';
@@ -7,9 +9,10 @@ import browserify from 'browserify';
 import babelify from 'babelify';
 import source from 'vinyl-source-stream';
 import buffer from 'vinyl-buffer';
+import karma from 'karma';
 
 
-var tasks = {};
+const tasks = {};
 const defaultBuildDirectory = './public';
 
 // This gulp's file base bath should be the root of the project
@@ -28,7 +31,7 @@ const plugins = loadGulpPlugins();
 
 // This are directory locations of all the files
 // that make up the project
-var paths = {
+const paths = {
   images: 'app/images/**/*',
   jade: [
     '!app/views/layouts/*.jade',
@@ -41,10 +44,12 @@ var paths = {
     '!app/styles/less/base/*.+(less|css)'
   ],
   staticFiles: [
-    '!app/**/*.+(less|css|js|jade)',
+    '!app/**/*.+(less|css|jade)',
+    '!app/scripts/*.js',
     '!app/images/**/*',
-    'app/**/*.*'
+    'app/**/*.*',
   ],
+  staticScripts: ['app/libs/**/*.js'],
   scripts: 'app/scripts/**/*.js',
   backendScripts: 'server/**/*.+(js|coffee)',
   unitTests: [],
@@ -93,8 +98,8 @@ fs.readdirSync(path.join(__dirname, './tasks'))
       return;
     }
 
-    var module = require('./tasks/' + file);
-    var filename = file.slice(0, file.length - 3);
+    const module = require('./tasks/' + file);
+    const filename = file.slice(0, file.length - 3);
     tasks[filename.toCamelCase()] = module[Object.keys(module)[0]];
   });
 
@@ -116,27 +121,29 @@ gulp.task('scripts', tasks.scripts(gulp, plugins, paths));
 gulp.task('images', tasks.images(gulp, plugins, paths));
 gulp.task('static-files', tasks.staticFiles(gulp, plugins, paths));
 
+gulp.task('test:fend', () => {
+  // Be sure to return the stream
+  return gulp.src(paths.unitTests)
+    .pipe(karma({
+      configFile: __dirname + '/karma.conf.js',
+      action: 'run',
+    }))
+    .on('error', (err) => {
+      // Make sure failed tests cause gulp to exit non-zero
+      throw err;
+    });
+});
+
 // Files to watch
-var reloadBrowser = plugins.browserSync.reload;
 gulp.task('watch', () => {
   // We want to watch all files
   // not the only ones compiled and moved to build folder
   // Since they import/include these other files
   // So we remove the '!' mark, which denotes ignore from each path
-  gulp.watch(paths.jade.map(p => p.replace(/\!/g, '')), ['jade']);
-  gulp.watch(paths.styles.map(p => p.replace(/\!/g, '')), ['less']);
+  gulp.watch(paths.jade.map(p => p.replace(/!/g, '')), ['jade']);
+  gulp.watch(paths.styles.map(p => p.replace(/!/g, '')), ['less']);
   gulp.watch(paths.scripts, ['browserify']);
   gulp.watch(['./gulpfile.babel.js', './tasks/**/*.js'], ['build']);
-
-  // var reloadBrowserOnChange = (event) => {
-  //   if (event.type == 'changed') {
-  //     reloadBrowser();
-  //   }
-  // };
-
-  // gulp.watch(paths.html, reloadBrowserOnChange);
-  // gulp.watch(paths.builtScripts, reloadBrowserOnChange);
-  // gulp.watch(paths.builtStyles, reloadBrowserOnChange);
 });
 
 
@@ -166,4 +173,4 @@ gulp.task('heroku:production', ['build']);
 gulp.task('heroku:staging', ['build']);
 
 // for tests
-gulp.task('test', ['test:fend', 'test:bend' /*, 'e2e' */ ]);
+gulp.task('test', ['test:fend']);
