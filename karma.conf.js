@@ -31,16 +31,6 @@ module.exports = (config) => {
         [
           'babelify', babelConfig,
         ],
-        [
-          'aliasify', {
-            aliases: {
-              querystring: 'querystring-browser',
-              bluebird: './public/vendor/bluebird/js/browser/bluebird.min.js',
-            },
-            verbose: true,
-            global: true,
-          },
-        ],
       ],
     },
 
@@ -110,7 +100,7 @@ module.exports = (config) => {
     // - Safari
     // - PhantomJS
     // - IE
-    browsers: ['PhantomJS'],
+    browsers: ['Chrome'],
 
     // https://www.youtube.com/watch?v=FQwZrOAmMAc
     // To turn off chrome's security limitations that do not allow some basics things to run

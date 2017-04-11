@@ -36,12 +36,12 @@ const paths = {
   jade: [
     '!app/views/layouts/*.jade',
     '!app/views/includes/*.jade',
-    'app/views/**/*.jade'
+    'app/views/**/*.jade',
   ],
   styles: [
     'app/styles/less/*.+(less|css)',
     '!app/styles/less/layouts/*.+(less|css)',
-    '!app/styles/less/base/*.+(less|css)'
+    '!app/styles/less/base/*.+(less|css)',
   ],
   staticFiles: [
     '!app/**/*.+(less|css|jade)',
@@ -58,7 +58,7 @@ const paths = {
   // If you're serving your application using node.js
   // use the option commented and set the correct proxy you are using
   // For express is usually: localhost:3000
-  serverURL: process.env.PROJECT_BUILD_FOLDER // localhost:3000
+  serverURL: process.env.PROJECT_BUILD_FOLDER, // localhost:3000
 };
 
 // build directories for individual type of files
@@ -80,19 +80,15 @@ plugins.browserSync.create();
 
 // Require this to convert different ways of naming files into carmel case
 // eg. clean-script.js, clean.scripts.js, clean_scripts.js, static_files-public.js
-String.prototype.toCamelCase = function() {
-  return ((/^[A-Z]/g.test(this) ? "-" : "") + this).replace(/[-_.]+([^-_.])/g, function(p1, p2) {
-    return p2.toUpperCase();
-  });
-};
+const camelCaseString = (string) =>
+  ((/^[A-Z]/g.test(string) ? '-' : '') + string)
+  .replace(/[-_.]+([^-_.])/g, (p1, p2) => p2.toUpperCase());
 
 // This function gets all the tasks from your tasks folder
 // adding the functions into tasks object
 fs.readdirSync(path.join(__dirname, './tasks'))
-  .filter(function(file) {
-    return (file.indexOf('.') !== 0) && (file !== basename);
-  })
-  .forEach(function(file) {
+  .filter((file) => (file.indexOf('.') !== 0) && (file !== basename))
+  .forEach((file) => {
     // check if it's a javascript file, if not terminate current loop
     if (file.slice(-3) !== '.js') {
       return;
@@ -100,7 +96,7 @@ fs.readdirSync(path.join(__dirname, './tasks'))
 
     const module = require('./tasks/' + file);
     const filename = file.slice(0, file.length - 3);
-    tasks[filename.toCamelCase()] = module[Object.keys(module)[0]];
+    tasks[camelCaseString(filename)] = module[Object.keys(module)[0]];
   });
 
 // console.log('List of tasks loaded: \n', tasks);
@@ -121,18 +117,17 @@ gulp.task('scripts', tasks.scripts(gulp, plugins, paths));
 gulp.task('images', tasks.images(gulp, plugins, paths));
 gulp.task('static-files', tasks.staticFiles(gulp, plugins, paths));
 
-gulp.task('test:fend', () => {
+gulp.task('test:fend', () =>
   // Be sure to return the stream
-  return gulp.src(paths.unitTests)
-    .pipe(karma({
-      configFile: __dirname + '/karma.conf.js',
-      action: 'run',
-    }))
-    .on('error', (err) => {
-      // Make sure failed tests cause gulp to exit non-zero
-      throw err;
-    });
-});
+  gulp.src(paths.unitTests)
+  .pipe(karma({
+    configFile: __dirname + '/karma.conf.js',
+    action: 'run',
+  }))
+  .on('error', (err) => {
+    // Make sure failed tests cause gulp to exit non-zero
+    throw err;
+  }));
 
 // Files to watch
 gulp.task('watch', () => {
